@@ -6,25 +6,35 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 10:42:02 by aaugu             #+#    #+#              #
-#    Updated: 2024/04/26 18:02:51 by aaugu            ###   ########.fr        #
+#    Updated: 2024/04/29 14:46:23 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM debian:11
 
-# LABEL maintainer="m24te28"
+# ------------------------- NGINX [engine x] -------------------------
+# Install Nginx
+RUN apt-get update -y
+RUN apt-get install -y nginx
 
-RUN apt-get update && \
-    apt-get install -y -q curl gnupg2
+# Configure NGINX by overwritting default configuration file
+COPY config/nginx.conf /etc/nginx/
 
-RUN curl http://nginx.org/keys/nginx_signing.key | apt-key add -
+# Prepare NGINX start
+COPY tools/run_nginx.sh /usr/local/run_ngnix.sh
+RUN chmod +x /usr/local/run_ngnix.sh
 
-RUN apt-get update && \
-    apt-get install -y -q nginx
+# ------------------------- SECURE SOCKET LAYER -------------------------
+# Install OpenSSL
+RUN mkdir -p /etc/nginx/ssl
+RUN apt-get update -y
+RUN apt-get install -y openssl
 
-ADD ./config/nginx.conf /etc/nginx/
-# ADD server.conf /etc/nginx/conf.d
+# Generate SSL certificate
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -sub "/C=CH/ST=VD/L=Lausanne/O=42/OU=42/CN=aaugu/emailAddress=aaugu@student.42.fr"
 
-EXPOSE 443
+# Exposes 443 port and makes it available only for inter-container communication
+EXPOSE ${NGINX_PORT}
 
-CMD ["nginx", "-g", "daemon off;"]
+# Set executable that will always run when the container is initiated
+ENTRYPOINT [ "sh", "usr/local/run_ngnix.sh" ]
