@@ -1,0 +1,31 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Dockerfile                                         :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/04/30 11:35:37 by aaugu             #+#    #+#              #
+#    Updated: 2024/04/30 11:54:18 by aaugu            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+FROM debian:11
+
+# ------------------------- MARIADB -------------------------
+# Install MariaDb
+RUN apt update -y
+RUN apt install mariadb-server
+
+# Configure MariaDB by overwritting default configuration file
+COPY config/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+
+# Prepare MariaDB start
+COPY tools/start_mariadb.sh /usr/local/start_mariadb.sh
+RUN chmod +x /usr/local/start_mariadb.sh
+
+# Exposes port 443 and makes it available only for inter-container communication
+EXPOSE ${DB_PORT}
+
+# Set executable that will always run when the container is initiated
+ENTRYPOINT [ "sh", "usr/local/start_mariadb.sh" ]
