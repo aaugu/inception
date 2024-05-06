@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:02:10 by aaugu             #+#    #+#              #
-#    Updated: 2024/04/30 11:07:55 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/06 12:01:55 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,23 +15,13 @@ FROM debian:11
 # ------------------------- PHP -------------------------
 # Install PHP
 RUN apt-get update -y
-RUN apt-get install -y nginx
 
-# Configure NGINX by overwritting default configuration file
-COPY config/nginx.conf /etc/nginx/
-
-# Prepare NGINX start
-COPY tools/run_nginx.sh /usr/local/run_ngnix.sh
-RUN chmod +x /usr/local/run_ngnix.sh
 
 # ------------------------- WORDPRESS -------------------------
 # Install Wordpress
-RUN mkdir -p /etc/nginx/ssl
 RUN apt-get update -y
-RUN apt-get install -y openssl
 
-# Generate SSL certificate
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/C=CH/ST=VD/L=Lausanne/O=42/OU=42/CN=aaugu/emailAddress=aaugu@student.42.fr"
+
 
 # Exposes port 9000 and makes it available only for inter-container communication
 EXPOSE ${WP_PORT}

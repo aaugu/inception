@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 08:55:25 by aaugu             #+#    #+#              #
-#    Updated: 2024/04/26 10:21:38 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/06 14:31:43 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ DC_FILE			= ./srcs/docker-compose.yml
 all : build up
 
 build :
+	
 	$(DOCKER_COMPOSE) -f $(DC_FILE) build
 
 up :

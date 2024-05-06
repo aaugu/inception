@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 10:42:02 by aaugu             #+#    #+#              #
-#    Updated: 2024/04/30 11:37:40 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/06 11:55:25 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ RUN apt-get update -y
 RUN apt-get install -y nginx
 
 # Configure NGINX by overwritting default configuration file
-COPY config/nginx.conf /etc/nginx/
+COPY config/nginx.conf /etc/nginx/nginx.conf
 
 # Prepare NGINX start
 COPY tools/start_nginx.sh /usr/local/start_nginx.sh
