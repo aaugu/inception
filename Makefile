@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 08:55:25 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/06 14:31:43 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/06 15:27:23 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ logs:
 	$(DOCKER_COMPOSE) -f $(DC_FILE) logs
 
 
-clean: down
+clean: 	down
 
 fclean: clean
 	docker system prune -f -a --volumes

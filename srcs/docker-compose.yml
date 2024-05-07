@@ -3,14 +3,14 @@ version: "11"
 services:
     nginx:
         container_name: nginx
+        image:          nginx
         build:          ./requirements/nginx/
-        image:          nginx:inception
         env_file:       .env
         restart:        on-failure
-        # networks:
-        #     - inception
         ports:
             - "443:443"
+        # networks:
+        #     - inception
         # volumes:
         #     - wordpress-data:/var/www/html/
         # depends_on:
