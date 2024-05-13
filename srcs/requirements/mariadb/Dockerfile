@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:35:37 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/07 14:06:55 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/13 11:28:00 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ COPY config/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 # Prepare MariaDB start
 COPY tools/start_mariadb.sh /usr/local/start_mariadb.sh
 RUN chmod +x /usr/local/start_mariadb.sh
-RUN -p mkdir /run/mysqld
+RUN mkdir -p /run/mysqld
 
 # Exposes port 443 and makes it available only for inter-container communication
 EXPOSE ${DB_PORT}
