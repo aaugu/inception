@@ -6,22 +6,19 @@
 #    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 08:55:25 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/17 12:46:58 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/17 15:50:01 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= inception
 DOCKER_COMPOSE	= docker-compose
 DC_FILE			= ./srcs/docker-compose.yml
-WP_DATA_PATH	= /home/aaugu/data/wordpress
-MDB_DATA_PATH	= /home/aaugu/data/mariadb
 
-all : boot build up
+all : boot #build up
 
 boot :
-
-	@(if [ ! -d ${WP_DATA_PATH} ]; then mkdir -p ${WP_DATA_PATH}; fi)
-	@(if [ ! -d ${MDB_DATA_PATH} ]; then mkdir -p ${MDB_DATA_PATH}; fi)
+	@(sh srcs/requirements/tools/prepare_inception.sh $(path))
+	echo "Inception successfully prepared !"
 
 build :
 	$(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) build
