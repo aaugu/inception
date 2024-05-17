@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 10:42:02 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/07 13:57:54 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/13 13:50:13 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ FROM debian:11
 
 # ------------------------- NGINX [engine x] -------------------------
 # Install Nginx
-RUN apt-get update -y
+RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install -y nginx
 
 # Configure NGINX by overwritting default configuration file
@@ -27,7 +27,7 @@ RUN chmod +x /usr/local/start_nginx.sh
 # ------------------------- SECURE SOCKET LAYER -------------------------
 # Install OpenSSL
 RUN mkdir -p /etc/nginx/ssl
-RUN apt-get update -y
+RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install -y openssl
 
 # Generate SSL certificate

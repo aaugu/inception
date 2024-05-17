@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 networks:
     inception:
@@ -12,6 +12,7 @@ volumes:
             type:   none
             o:      bind
             device: /home/leenae/data/mariadb
+
     wordpress_volume:
         driver: local
         name:   wordpress_volume
@@ -31,6 +32,8 @@ services:
             - inception
         volumes:
             - mariadb_volume:/var/lib/mysql
+        ports:
+            - "3306:3306"
 
     wordpress:
         container_name: wordpress
@@ -42,6 +45,8 @@ services:
             - inception
         volumes:
             - wordpress_volume:/var/www/wordpress
+        ports:
+            - "9000:9000"
         depends_on:
             - mariadb
 

@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:35:37 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/13 11:28:00 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/13 13:50:20 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ FROM debian:11
 
 # ------------------------- MARIADB -------------------------
 # Install MariaDb
-RUN apt update -y
+RUN apt-get update -y && apt-get upgrade -y
 RUN apt install mariadb-server mariadb-client -y
 
 # Configure MariaDB by overwritting default configuration file

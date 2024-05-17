@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:57:53 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/07 13:49:30 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/13 21:58:51 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,13 @@ chown -R mysql:mysql /run/mysqld;
 mysqld --user=mysql --datadir=/var/lib/mysql &	
 
 pid=$!		# $! is the process id of the last command
-sleep 3		# Wait for mariadb to start
+sleep 10	# Wait for mariadb to start
 
-mysql -u root -p${MDB_ROOT_PASS} -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MDB_ROOT_PASS}';"
-mysql -u root -p${MDB_ROOT_PASS} -e "CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\`;"
-mysql -u root -p${MDB_ROOT_PASS} -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_USER_PASS}';"
-mysql -u root -p${MDB_ROOT_PASS} -e "GRANT ALL PRIVILEGES ON *.* TO '${DB_USER}' IDENTIFIED BY '${DB_USER_PASS}';"
-mysql -u root -p${MDB_ROOT_PASS} -e "FLUSH PRIVILEGES";
+mysql -u root -p ${MDB_ROOT_PASS} -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MDB_ROOT_PASS}';"
+mysql -u root -p ${MDB_ROOT_PASS} -e "CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\`;"
+mysql -u root -p ${MDB_ROOT_PASS} -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_USER_PASS}';"
+mysql -u root -p ${MDB_ROOT_PASS} -e "GRANT ALL PRIVILEGES ON *.* TO '${DB_USER}' IDENTIFIED BY '${DB_USER_PASS}';"
+mysql -u root -p ${MDB_ROOT_PASS} -e "FLUSH PRIVILEGES";
 
 
 # Show the databases
