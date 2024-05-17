@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
+#    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:02:10 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/14 13:41:04 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/17 14:19:28 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ RUN chmod +x /usr/local/start_wordpress.sh
 WORKDIR	/var/www/wordpress
 
 # Exposes port 9000 and makes it available only for inter-container communication
-EXPOSE ${WP_PORT}
+EXPOSE 9000
 
 # Set executable that will always run when the container is initiated
 ENTRYPOINT [ "sh", "usr/local/start_wordpress.sh" ]

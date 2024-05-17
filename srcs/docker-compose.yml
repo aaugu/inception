@@ -11,7 +11,7 @@ volumes:
         driver_opts:
             type:   none
             o:      bind
-            device: /home/leenae/data/mariadb
+            device: /home/aaugu/data/mariadb
 
     wordpress_volume:
         driver: local
@@ -19,7 +19,7 @@ volumes:
         driver_opts:
             type:   none
             o:      bind
-            device: /home/leenae/data/wordpress
+            device: /home/aaugu/data/wordpress
 
 services:
     mariadb:
