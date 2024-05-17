@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
+#    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 08:55:25 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/13 22:17:56 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/17 12:46:58 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= inception
 DOCKER_COMPOSE	= docker-compose
 DC_FILE			= ./srcs/docker-compose.yml
-WP_DATA_PATH	= /home/leenae/data/wordpress
-MDB_DATA_PATH	= /home/leenae/data/mariadb
+WP_DATA_PATH	= /home/aaugu/data/wordpress
+MDB_DATA_PATH	= /home/aaugu/data/mariadb
 
 all : boot build up
 
