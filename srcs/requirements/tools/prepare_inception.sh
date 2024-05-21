@@ -19,19 +19,22 @@ fi
 
 echo "Creating .env file..."
 
-if [ "$#" -eq 0 ]
-then
-    echo "${RED}ERROR: Path to secrets missing !${NC}"
-    exit 1
-else
-	c++ -Wall -Wextra -Werror srcs/requirements/tools/main.cpp
-	./a.out $1
-	rm ./a.out
-	if [ ! -f ../.env ]
+if [ ! -f ../.env ]
+then	
+	if [ "$#" -eq 0 ]
 	then
-		echo "${RED}ERROR: Could not create .env file!${NC}"
+		echo "${RED}ERROR: Path to secrets missing !${NC}"
 		exit 1
 	else
-    	echo "${GREEN}.env file created successfully!${NC}"
+		c++ -Wall -Wextra -Werror srcs/requirements/tools/main.cpp
+		./a.out $1
+		rm ./a.out
+		if [ ! -f ../.env ]
+		then
+			echo "${RED}ERROR: Could not create .env file!${NC}"
+			exit 1
+		else
+			echo "${GREEN}.env file created successfully!${NC}"
+		fi
 	fi
 fi

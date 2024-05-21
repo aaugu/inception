@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
+#    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 10:42:02 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/17 14:19:18 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/21 14:22:49 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
             -out /etc/ssl/certs/nginx-selfsigned.crt \
             -subj "/C=CH/ST=VD/L=Lausanne/O=42/OU=42/CN=aaugu/emailAddress=aaugu@student.42.fr"
 
-# Exposes port 443 and makes it available only for inter-container communication
+# Exposes port 443 and makes it available only for inter-container communication (required for SSL protocol)
 EXPOSE 443
 
 # Set executable that will always run when the container is initiated
