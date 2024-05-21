@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 10:42:02 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/21 14:22:49 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/21 23:31:27 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,12 @@ FROM debian:11
 # Install Nginx
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install -y nginx
+
+# Creating NGINX working directories + give access to NGINX
+RUN mkdir -p /var/run/nginx
+RUN mkdir -p /var/www/wordpress
+RUN chmod -R 755 /var/www/wordpress
+RUN chown -R www-data:www-data /var/www
 
 # Configure NGINX by overwritting default configuration file
 COPY config/nginx.conf /etc/nginx/nginx.conf
@@ -32,8 +38,8 @@ RUN apt-get install -y openssl
 
 # Generate SSL certificate
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-            -keyout /etc/ssl/private/nginx-selfsigned.key \
-            -out /etc/ssl/certs/nginx-selfsigned.crt \
+            -out /etc/nginx/ssl/nginx-selfsigned.crt \
+            -keyout /etc/nginx/ssl/nginx-selfsigned.key \
             -subj "/C=CH/ST=VD/L=Lausanne/O=42/OU=42/CN=aaugu/emailAddress=aaugu@student.42.fr"
 
 # Exposes port 443 and makes it available only for inter-container communication (required for SSL protocol)

@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:02:10 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/21 22:14:55 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/21 23:35:59 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,12 +37,12 @@ RUN apt-get install -y wget
 COPY tools/start_wordpress.sh /usr/local/start_wordpress.sh
 RUN chmod +x /usr/local/start_wordpress.sh
 
-# Wordpress working directory creation
-RUN	mkdir -p /var/www/wordpress
+# Creating Wordpress working directories
+RUN mkdir -p /var/www/wordpress
+RUN chmod -R 755 /var/www/wordpress
 
 # Give rights to user www-data and change permissions on directory
 RUN chown -R www-data:www-data /var/www
-RUN chmod -R 755 /var/www
 
 # Install WP-CLI (Command Line Interface)
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
