@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    start_mariadb.sh                                   :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
+#    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:57:53 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/17 14:59:49 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/21 14:45:01 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,7 @@ mysql -u root -p ${MDB_ROOT_PASS} -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'lo
 mysql -u root -p ${MDB_ROOT_PASS} -e "GRANT ALL PRIVILEGES ON *.* TO '${DB_USER}' IDENTIFIED BY '${DB_USER_PASS}';"
 mysql -u root -p ${MDB_ROOT_PASS} -e "FLUSH PRIVILEGES";
 
-
-# Show the databases
+# Show databases and user
 echo "------------------\n"
 mysql -u root -p${MDB_ROOT_PASS} -e "SHOW DATABASES;"
 echo "------------------\n"
