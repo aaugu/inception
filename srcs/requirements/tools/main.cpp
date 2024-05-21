@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+        */
+/*   By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:32:41 by aaugu             #+#    #+#             */
-/*   Updated: 2024/05/17 15:47:59 by aaugu            ###   ########.fr       */
+/*   Updated: 2024/05/21 22:47:30 by aaugu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 int	main(int ac, char** av)
 {
 	(void) ac;
-	std::cout << "chemin donne : " << av[1] << std::endl;	
+	std::cout << "chemin donne : " << av[1] << "\n";	
 	return (0);
 }

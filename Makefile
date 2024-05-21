@@ -3,28 +3,30 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
+#    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 08:55:25 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/17 15:50:01 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/21 23:05:10 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= inception
 DOCKER_COMPOSE	= docker-compose
 DC_FILE			= ./srcs/docker-compose.yml
+DATA_PATH		= /home/leenae/data/
+ENV_PATH		= srcs/.env
 
 all : boot #build up
 
 boot :
-	@(sh srcs/requirements/tools/prepare_inception.sh $(path))
-	echo "Inception successfully prepared !"
+	@(sh srcs/requirements/tools/prepare_inception.sh $(ENV_PATH) $(path))
+	@(echo "Inception successfully prepared !")
 
 build :
 	$(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) build
 
 up :
-	$(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) up -d
+	$(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) up
 
 down : 
 	$(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) down
@@ -45,10 +47,11 @@ logs:
 
 
 clean: 	down
+	@(docker system prune -a)
 
 fclean: clean
-	docker volume rm mariadb_volume
-	docker volume rm wordpress_volume
-	docker system prune -f -a --volumes
+	@(docker system prune -a --volumes)
+	@(rm -rf $(DATA_PATH))
+	# @(rm $(ENV_PATH))
 
 .PHONY: all bool build up down start stop status logs clean fclean
