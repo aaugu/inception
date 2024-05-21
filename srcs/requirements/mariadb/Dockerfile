@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:35:37 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/21 14:43:21 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/21 14:49:09 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FROM debian:11
 # ------------------------- MARIADB -------------------------
 # Install MariaDB
 RUN apt-get update -y && apt-get upgrade -y
-RUN apt install mariadb-server mariadb-client -y
+RUN apt install mariadb-server -y
 
 # Working directory creation
 RUN mkdir -p /run/mysqld /var/lib/mysql

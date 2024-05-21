@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
+#    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:02:10 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/17 14:19:28 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/21 15:01:55 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,15 +17,19 @@ RUN apt-get update -y && apt upgrade -y
 RUN apt-get install -y wget
 
 # ------------------------- PHP -------------------------
-# Install PHP
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt install gnupg2 software-properties-common ca-certificates lsb-release apt-transport-https -y
 RUN sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 RUN wget -qO - https://packages.sury.org/php/apt.gpg | apt-key add -
+# Install PHP and PHP-FPM for PHP requests management 
 RUN apt-get update -y && apt-get upgrade -y
-RUN apt-get install -y php8.0 php8.0-common php8.0-cli php-fpm php-mysql
+RUN apt-get install php8.0 php8.0-common php8.0-cli php-fpm -y
 
-# PHP Config
+# Install of php-mysql and mariadb-client for msql requests management
+RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get install php-mysql mariadb-client -y
+
+# PHP Working directory creation
 RUN mkdir -p /run/php
 
 # ------------------------- WORDPRESS -------------------------
@@ -35,12 +39,19 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-# Install wordpress
+# Wordpress working directory creation
 RUN	mkdir -p /var/www/wordpress
-RUN chmod -R 755 /var/www
+
+# Give rights to user www-data and change permissions on directory
 RUN chown -R www-data:www-data /var/www
+RUN chmod -R 755 /var/www
+
+# Install wordpress
 RUN cd /var/www/wordpress
 RUN wp core download --allow-root
+
+# Wordpress config file
+COPY conf/www.conf /etc/php/8.0/fpm/pool.d/www.conf
 
 # Prepare Wordpress start
 COPY tools/start_wordpress.sh /usr/local/start_wordpress.sh
