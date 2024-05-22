@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:02:10 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/22 14:52:44 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/22 19:01:42 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ FROM debian:11
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install software-properties-common -y
 RUN apt-get update -y && apt-get upgrade -y
-RUN apt-get install php7.3 php-fpm -y
+RUN apt-get install php7.3 -y && apt-get install php-fpm -y
 
 # Install of php-mysql and mariadb-client for msql requests management
 RUN apt-get update -y && apt-get upgrade -y

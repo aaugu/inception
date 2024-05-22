@@ -20,7 +20,7 @@ lc-messages-dir	= /usr/share/mysql
 #skip-external-locking
 
 # Instead of skip-networking the default is now to listen only on localhost which is more compatible and is not less secure.
-bind-address    = wordpress
+bind-address    = 0.0.0.0
 
 # * Fine Tuning
 key_buffer_size		= 16M
