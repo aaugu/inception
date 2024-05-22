@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:57:53 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/21 14:45:01 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/22 15:15:09 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,6 @@ echo "------------------\n"
 mysql -u root -p${MDB_ROOT_PASS} -e "SELECT User FROM mysql.user"
 echo "------------------\n"
 
-mysqladmin -u root -p$SQL_ROOT_PASSWORD shutdown
-
-mysql ${DB_NAME} -u${DB_ROOT} -p${DB_ROOT_PASS}
-mysqladmin -u${DB_ROOT} -p${DB_ROOT_PASS} shutdown
+kill "$pid"
 
 exec mysqld --user=mysql --datadir=/var/lib/mysql
