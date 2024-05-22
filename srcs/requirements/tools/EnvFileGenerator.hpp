@@ -6,7 +6,7 @@
 /*   By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:57:22 by aaugu             #+#    #+#             */
-/*   Updated: 2024/05/22 17:35:38 by aaugu            ###   ########.fr       */
+/*   Updated: 2024/05/22 18:23:44 by aaugu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ class EnvFileGenerator
 {
 	private:
 		// Fill env utils
-		int	copyEnvTemplate(std::string envFile);
-		int	fillEnvFile(std::string inFile, std::string envFile);
-		int	replaceTargetInEnvFile(std::string& target, std::string replace, std::string envFile);
+		int	fillEnvFile(std::ifstream* iFS, std::ofstream* oFS, std::string pathToSecrets);
+		int	searchForReplace(std::string& replace, std::string& target, std::string pathToSecrets);
+		int	searchForReplaceInFile(std::string& replace, std::string& target, std::string filePath);
 
 		// Stream utils
 		int	openStreams(std::ifstream* iFS, std::string inFile, std::ofstream* oFS, std::string outFile);

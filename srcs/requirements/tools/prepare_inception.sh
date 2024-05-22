@@ -32,15 +32,9 @@ echo "${CYAN}Creating .env file...${NC}"
 if [ ! -f ${ENV_PATH} ]
 then
 	c++ -Wall -Wextra -Werror srcs/requirements/tools/main.cpp srcs/requirements/tools/EnvFileGenerator.cpp
-	if [ ! -f "a.out" ]
-	then
-		./a.out $2
-		rm a.out
-		mv .env ${ENV_PATH}
-	else
-		echo "${RED}ERROR: Could not compile .env file generator !${NC}"
-		exit 1
-	fi
+	./a.out $2
+	rm a.out
+	mv .env ${ENV_PATH}
 
 	if [ ! -f ${ENV_PATH} ]
 	then

@@ -6,7 +6,7 @@
 /*   By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:20:35 by aaugu             #+#    #+#             */
-/*   Updated: 2024/05/22 18:04:19 by aaugu            ###   ########.fr       */
+/*   Updated: 2024/05/22 18:29:53 by aaugu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,15 @@ int	EnvFileGenerator::generateEnv(std::string pathToSecrets)
 {
 	std::string		envFile = ".env";
 
-	copyEnvTemplate(envFile);
-	
-	fillEnvFile(pathToSecrets + "/credentials.txt", envFile);
-	fillEnvFile(pathToSecrets + "/db_password.txt", envFile);
-	fillEnvFile(pathToSecrets + "/db_root_password.txt", envFile);
+	std::ifstream	iFS;
+	std::ofstream	oFS;
+	if ( openStreams(&iFS, "srcs/requirements/tools/.env_template", &oFS, envFile) == -1 )
+		return (1);
+
+	fillEnvFile(&iFS, &oFS, pathToSecrets);
+
+	iFS.close();
+	oFS.close();
 
 	if ( isEnvFileComplete() == true )
 		return (0);
@@ -48,69 +52,76 @@ int	EnvFileGenerator::generateEnv(std::string pathToSecrets)
 /*                               FILL ENV UTILS                               */
 /* ************************************************************************** */
 
-int		EnvFileGenerator::copyEnvTemplate(std::string envFile)
-{
-	std::string	line;
-
-	std::ifstream	iFS;
-	std::ofstream	oFS;
-	if ( openStreams(&iFS, "srcs/requirements/tools/.env_template", &oFS, envFile) == -1 )
-		return (1);
-
-	while (std::getline(iFS, line))
-		oFS << line << std::endl;
-
-	iFS.close();
-	oFS.close();
-
-	return (0);
-}
-
-int	EnvFileGenerator::fillEnvFile(std::string inFile, std::string envFile)
+int		EnvFileGenerator::fillEnvFile(std::ifstream* iFS, std::ofstream* oFS, std::string pathToSecrets)
 {
 	std::string	line;
 	size_t		pos;
 
-	std::ifstream	iFS;
-	if ( openInFileStream(&iFS, inFile) == -1 )
-		return (1);
 
-	while ( std::getline(iFS, line) )
+	while ( std::getline(*iFS, line) )
 	{
 		pos = line.find("=");
 		if ( pos != std::string::npos )
 		{
 			std::string	target = line.substr(0, pos + 1);
-			replaceTargetInEnvFile(target, line, envFile);
+			std::string	replace = "";
+			int	res = searchForReplace(replace, target, pathToSecrets);
+			if ( res == 1 )
+				*oFS << line << std::endl;
+			else if (res == -1)
+				return (1);
+			else
+				*oFS << replace << std::endl;
 		}
+		else 
+			*oFS << line << std::endl;
 	}
-
-	iFS.close();
+	
 	return (0);
 }
 
-int	EnvFileGenerator::replaceTargetInEnvFile(std::string& target, std::string replace, std::string envFile)
+
+int	EnvFileGenerator::searchForReplace(std::string& replace, std::string& target, std::string pathToSecrets)
+{
+	try
+	{
+		searchForReplaceInFile(replace, target, pathToSecrets + "/credentials.txt");
+		if ( replace.empty() )
+			searchForReplaceInFile(replace, target, pathToSecrets + "/db_password.txt");
+		if ( replace.empty() )
+			searchForReplaceInFile(replace, target, pathToSecrets + "/db_root_password.txt");
+		if ( replace.empty() )
+			return (1);
+		return (0);
+	}
+	catch(const std::exception& e)
+	{
+		return (-1);
+	}	
+}
+
+int	EnvFileGenerator::searchForReplaceInFile(std::string& replace, std::string& target, std::string filePath)
 {
 	std::string	line;
 	size_t		pos;
 
 	std::ifstream	iFS;
-	if ( openInFileStream(&iFS, envFile) == -1 )
-		return (1);
+	if ( openInFileStream(&iFS, filePath) == -1 )
+		throw;
 	
 	while ( std::getline(iFS, line) )
 	{
 		pos = line.find(target);
 		if ( pos != std::string::npos )
 		{
-			line.erase(0, line.size());
-			if ( !replace.empty() )
-				line.insert(0, replace);
+			replace = line;
+			iFS.close();
+			return (0);
 		}
 	}
 
 	iFS.close();
-	return (0);
+	return (1);
 }
 
 /* ************************************************************************** */
