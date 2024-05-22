@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 10:42:02 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/21 23:31:27 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/22 14:17:55 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ RUN mkdir -p /var/www/wordpress
 RUN chmod -R 755 /var/www/wordpress
 RUN chown -R www-data:www-data /var/www
 
-# Configure NGINX by overwritting default configuration file
+# Configure NGINX by overwritting configuration file
 COPY config/nginx.conf /etc/nginx/nginx.conf
 
 # Prepare NGINX start
@@ -36,8 +36,8 @@ RUN mkdir -p /etc/nginx/ssl
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install -y openssl
 
-# Generate SSL certificate
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+# Generate SSL certificate (req for request / -x509 for self-signed / -nodes for non encrypted private key)
+RUN openssl req -x509 -nodes \
             -out /etc/nginx/ssl/nginx-selfsigned.crt \
             -keyout /etc/nginx/ssl/nginx-selfsigned.key \
             -subj "/C=CH/ST=VD/L=Lausanne/O=42/OU=42/CN=aaugu/emailAddress=aaugu@student.42.fr"

@@ -6,11 +6,11 @@
 #    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:02:41 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/21 14:23:13 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/22 14:17:20 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-echo "---------- RUNNING NGINX... ----------"
+echo "---------- STARTING NGINX... ----------"
 
 nginx -v
 nginx -g 'daemon off;'
