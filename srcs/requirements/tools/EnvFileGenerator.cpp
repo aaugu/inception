@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   EnvFileGenerator.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:20:35 by aaugu             #+#    #+#             */
-/*   Updated: 2024/05/22 18:29:53 by aaugu            ###   ########.fr       */
+/*   Updated: 2024/05/23 10:17:28 by aaugu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <iostream>
 #include <errno.h>
 #include <string.h>
+#include <cstdio>
 
 /* ************************************************************************** */
 /*                          CONSTRUCTORS & DESTRUCTOR                         */
@@ -45,7 +46,10 @@ int	EnvFileGenerator::generateEnv(std::string pathToSecrets)
 	if ( isEnvFileComplete() == true )
 		return (0);
 	else
+	{
+		std::remove(envFile.c_str());
 		return (1);
+	}
 }
 
 /* ************************************************************************** */
@@ -130,7 +134,7 @@ int	EnvFileGenerator::searchForReplaceInFile(std::string& replace, std::string& 
 
 int		EnvFileGenerator::isEnvFileComplete()
 {
-	return (0);
+	return (1);
 }
 
 /* ************************************************************************** */

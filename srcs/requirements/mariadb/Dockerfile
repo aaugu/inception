@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
+#    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:35:37 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/22 15:15:26 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/23 13:54:43 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FROM debian:11
+FROM debian:bullseye
 
 # ------------------------- MARIADB -------------------------
 # Install MariaDB

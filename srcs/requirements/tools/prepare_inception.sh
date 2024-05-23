@@ -4,8 +4,8 @@ YELLOW='\033[0;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-WP_DATA_PATH="/home/leenae/data/wordpress"
-MDB_DATA_PATH="/home/leenae/data/mariadb"
+WP_DATA_PATH="/home/aaugu/data/wordpress"
+MDB_DATA_PATH="/home/aaugu/data/mariadb"
 ENV_PATH=$1
 
 echo "---------- PREPARING DOCKER TO START... ----------"

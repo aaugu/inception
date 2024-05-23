@@ -1,30 +1,30 @@
 version: "3.8"
 
-networks:
-    inception:
-        driver: bridge
-
 volumes:
     mariadb_volume:
         driver: local
         name:   mariadb_volume
         driver_opts:
+            device: /home/aaugu/data/mariadb
             type:   none
             o:      bind
-            device: /home/leenae/data/mariadb
 
     wordpress_volume:
         driver: local
         name:   wordpress_volume
         driver_opts:
+            device: /home/aaugu/data/wordpress
             type:   none
             o:      bind
-            device: /home/leenae/data/wordpress
+
+networks:
+    inception:
+        driver: bridge
 
 services:
     mariadb:
         container_name: mariadb
-        image:          mariadb
+        # image:          mariadb
         build:          ./requirements/mariadb
         env_file:       .env
         restart:        unless-stopped
@@ -35,7 +35,7 @@ services:
 
     wordpress:
         container_name: wordpress
-        image:          wordpress 
+        # image:          wordpress 
         build:          ./requirements/wordpress
         env_file:       .env
         restart:		on-failure
@@ -48,7 +48,7 @@ services:
 
     nginx:
         container_name: nginx
-        image:          nginx
+        # image:          nginx
         build:          ./requirements/nginx/
         env_file:       .env
         restart:        on-failure

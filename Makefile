@@ -3,20 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aaugu <aaugu@student.42.fr>                +#+  +:+       +#+         #
+#    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 08:55:25 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/22 19:57:15 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/23 11:09:06 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= inception
 DOCKER_COMPOSE	= docker-compose
 DC_FILE			= ./srcs/docker-compose.yml
-DATA_PATH		= /home/leenae/data/
+DATA_PATH		= /home/aaugu/data/
 ENV_PATH		= srcs/.env
 
-all : prepare build up
+all : prepare down build up
 
 prepare :
 	@(sh srcs/requirements/tools/prepare_inception.sh $(ENV_PATH) $(path))
