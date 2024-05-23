@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:02:10 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/23 14:01:18 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/23 15:42:09 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ RUN chown -R www-data:www-data /var/www
 RUN chmod -R 755 /var/www/
 
 # Wordpress config file
-COPY config/www.conf /etc/php/7.3/fpm/pool.d/www.conf
+COPY config/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 # Prepare Wordpress start
 COPY tools/start_wordpress.sh /usr/local/start_wordpress.sh

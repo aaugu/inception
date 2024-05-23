@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 08:55:25 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/23 11:09:06 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/23 15:55:05 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ DC_FILE			= ./srcs/docker-compose.yml
 DATA_PATH		= /home/aaugu/data/
 ENV_PATH		= srcs/.env
 
-all : prepare down build up
+all : prepare #down build up
 
 prepare :
 	@(sh srcs/requirements/tools/prepare_inception.sh $(ENV_PATH) $(path))
@@ -26,7 +26,7 @@ build :
 	$(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) build
 
 up :
-	$(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) up
+	$(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) up -d
 
 down : 
 	$(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) down

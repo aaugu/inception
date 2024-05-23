@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:02:35 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/23 14:00:33 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/23 15:46:22 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,15 +14,17 @@ echo "------------------------------- WORDPRESS START --------------------------
 
 php-fpm7.4 -v
 
+
 # Wait for mariadb to start
-while ! mariadb -u $MDB_USER --password=$MDB_PASS -h mariadb -P 3306 --silent; do
+while ! mariadb -u $MDB_USER --password=$MDB_USER_PASS -h mariadb -P 3306 --silent; do
 	sleep 1
 	echo "Mariadb is not ready yet"
 done
 
+cat /etc/php/7.4/fpm/php-fpm.conf
 # Display database
 echo "-------------------------------\n"
-mariadb -u $MDB_USER --password=$MDB_PASS -h mariadb -P 3306 -e "SHOW DATABASES;"
+mariadb -u $MDB_USER --password=$MDB_USER_PASS -h mariadb -P 3306 -e "SHOW DATABASES;"
 echo "-------------------------------\n"
 
 # Check if wordpress is already installed
