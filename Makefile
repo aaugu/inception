@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 08:55:25 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/24 12:03:37 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/24 12:34:16 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ DATA_PATH		= /home/aaugu/data/
 ENV_PATH		= srcs/.env
 SECRETS_PATH	= secrets
 
-all : prepare #down build up
+all : prepare down build up
 
 prepare :
 	@(sh srcs/requirements/tools/prepare_inception.sh $(secrets) $(env))

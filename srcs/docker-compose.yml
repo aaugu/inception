@@ -30,8 +30,8 @@ services:
             dockerfile: Dockerfile
         env_file:       .env
         environment:
-            - MDB_ROOT_PASS: secrets/db_root_password
-            - MDB_USER_PASS: secrets/db_password
+            MDB_ROOT_PASS: /run/secrets/db_root_password
+            MDB_USER_PASS: /run/secrets/db_password
         restart:        unless-stopped
         networks:
             - inception
@@ -49,9 +49,9 @@ services:
             dockerfile: Dockerfile
         env_file:       .env
         environment:
-            - MDB_USER_PASS: secrets/db_password
-            - WP_ADMIN_PASS: secrets/wp_admin_pass
-            - WP_USER_PASS: secrets/wp_user_pass
+            MDB_USER_PASS: /run/secrets/db_password
+            WP_ADMIN_PASS: /run/secrets/wp_admin_pass
+            WP_USER_PASS: /run/secrets/wp_user_pass
         restart:		on-failure
         networks:
             - inception
@@ -83,10 +83,10 @@ services:
 
 secrets:
     db_password:
-        file: db_password.txt
+        file: ../secrets/db_password.txt
     db_root_password:
-        file: db_root_password.txt
+        file: ../secrets/db_root_password.txt
     wp_admin_pass:
-        file: wp_admin_pass.txt
+        file: ../secrets/wp_admin_pass.txt
     wp_user_pass:
-        file: wp_user_pass.txt
+        file: ../secrets/wp_user_pass.txt
