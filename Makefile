@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 08:55:25 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/23 15:55:05 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/24 12:03:37 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,12 @@ DOCKER_COMPOSE	= docker-compose
 DC_FILE			= ./srcs/docker-compose.yml
 DATA_PATH		= /home/aaugu/data/
 ENV_PATH		= srcs/.env
+SECRETS_PATH	= secrets
 
 all : prepare #down build up
 
 prepare :
-	@(sh srcs/requirements/tools/prepare_inception.sh $(ENV_PATH) $(path))
+	@(sh srcs/requirements/tools/prepare_inception.sh $(secrets) $(env))
 	@(echo "Inception successfully prepared !")
 
 build :
@@ -52,6 +53,7 @@ clean: 	down
 fclean: clean
 	@(docker system prune -a --volumes)
 	@(sudo rm -rf $(DATA_PATH))
-	@(rm $(ENV_PATH))
+	#@(rm -rf $(SECRETS_PATH))
+	#@(rm $(ENV_PATH))
 
 .PHONY: all prepare build up down start stop status logs clean fclean
