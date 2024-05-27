@@ -11,39 +11,20 @@ SECRETS_PATH="./secrets"
 
 echo "-------------------- PREPARING DOCKER TO START... --------------------"
 
-if [ "$#" -eq 0 ] || [ "$#" -eq 1 ]; then
-	echo "${RED}ERROR: Path to secrets directory or .env file missing !${NC}"
-	echo "${RED}Usage: make secrets=<path_to_secrets_directory> env=<path_to_env_file>${NC}"
-	exit 1
-fi
-
-echo "${CYAN}Preparing secrets ...${NC}"
+echo "${CYAN}Checking secrets and .env file...${NC}"
 if [ ! -d ${SECRETS_PATH} ]; then
-	cp -r $1 .
-	if [ ! -d ${SECRETS_PATH} ]; then
-		echo "${RED}Secrets directory is missing!${NC}"
-		exit 1
-	else
-		echo "${GREEN}Secrets directory successfully imported${NC}"
-	fi
+	echo "${RED}Secrets directory is missing!${NC}"
+	exit 1
 else
 	echo "${GREEN}Secrets directory successfully found${NC}"
 fi
 
-echo "${CYAN}Preparing env ...${NC}"
-
 if [ ! -f ${ENV_PATH} ]; then
-	cp $2 ${ENV_PATH}
-	if [ ! -f ${ENV_PATH} ]; then
-		echo "${RED}.env file is missing!${NC}"
-		exit 1
-	else
-		echo "${GREEN}.env file successfully imported${NC}"
-	fi
+	echo "${RED}.env file is missing!${NC}"
+	exit 1
 else
 	echo "${GREEN}.env file successfully found${NC}"
 fi
-
 
 echo "${CYAN}Creating directories to store data...${NC}"
 if [ ! -d ${WP_DATA_PATH} ]

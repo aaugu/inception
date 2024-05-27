@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 08:55:25 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/24 12:34:16 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/27 11:07:58 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,31 +20,35 @@ SECRETS_PATH	= secrets
 all : prepare down build up
 
 prepare :
-	@(sh srcs/requirements/tools/prepare_inception.sh $(secrets) $(env))
+	@(sh srcs/requirements/tools/prepare_inception.sh)
 	@(echo "Inception successfully prepared !")
 
 build :
-	$(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) build
+	@(echo "Creating images...")
+	@($(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) build)
 
 up :
-	$(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) up -d
+	@(echo "Building, creating and starting containers...")
+	@($(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) up)
 
-down : 
-	$(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) down
+down :
+	@(echo "Stopping containers...")
+	@($(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) down)
 
-start : 
+start :
 	$(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) start
 
 stop :
 	$(DOCKER_COMPOSE) -f $(DC_FILE) $(NAME) stop
 
-restart : stop up
+restart :
+	$(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) restart
 
 status:
-	$(DOCKER_COMPOSE) -f $(DC_FILE) ps
+	@($(DOCKER_COMPOSE) -f $(DC_FILE) ps)
 
 logs:
-	$(DOCKER_COMPOSE) -f $(DC_FILE) logs
+	@($(DOCKER_COMPOSE) -f $(DC_FILE) logs)
 
 
 clean: 	down

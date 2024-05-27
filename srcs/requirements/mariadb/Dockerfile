@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:35:37 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/23 13:54:43 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/27 12:01:59 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FROM debian:bullseye
 # ------------------------- MARIADB -------------------------
 # Install MariaDB
 RUN apt-get update -y && apt-get upgrade -y
-RUN apt install mariadb-server procps -y
+RUN apt install mariadb-server -y
 
 # Working directory creation
 RUN mkdir -p /run/mysqld /var/lib/mysql
@@ -31,4 +31,4 @@ RUN chmod +x /usr/local/start_mariadb.sh
 EXPOSE 3306
 
 # Set executable that will always run when the container is initiated
-ENTRYPOINT [ "sh", "usr/local/start_mariadb.sh" ]
+ENTRYPOINT [ "sh", "/usr/local/start_mariadb.sh" ]

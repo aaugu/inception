@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 10:42:02 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/23 13:59:33 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/27 11:58:23 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ RUN apt-get install -y openssl
 RUN openssl req -x509 -nodes \
             -out /etc/nginx/ssl/nginx-selfsigned.crt \
             -keyout /etc/nginx/ssl/nginx-selfsigned.key \
-            -subj "/C=CH/ST=VD/L=Lausanne/O=42/OU=42/CN=aaugu/emailAddress=aaugu@student.42.fr"
+            -subj "/C=SW/ST=VD/L=Lausanne/O=42/OU=42/CN=aaugu"
 
 # ------------------------- PREPARATION -------------------------
 
@@ -46,4 +46,4 @@ RUN chmod +x /usr/local/start_nginx.sh
 EXPOSE 443
 
 # Set executable that will always run when the container is initiated
-ENTRYPOINT [ "sh", "usr/local/start_nginx.sh" ]
+ENTRYPOINT [ "sh", "/usr/local/start_nginx.sh" ]
