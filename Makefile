@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 08:55:25 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/28 13:56:04 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/28 14:14:16 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,10 +80,11 @@ clean: down
 
 fclean: down
 	@(docker system prune -a --volumes)
+	@(docker volume rm $$(docker volume ls -q))
 	@(sudo rm -rf $(DATA_PATH))
 	@(rm $(ENV_PATH))
 
 re: fclean all
 
-.PHONY: all prepare build up up-detached down start stop status logs clean fclean
+.PHONY: all prepare build up up-detached down start stop status logs clean fclean re
 
