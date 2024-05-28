@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:02:35 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/28 11:33:37 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/28 13:49:20 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,25 +20,25 @@ while ! mariadb -u $MARIADB_USER --password=$MARIADB_PASS -h mariadb -P 3306 --s
 	echo "Mariadb is not ready yet."
 done
 
+# Display database
 echo "------------------\n"
 mariadb -u $MARIADB_USER --password=$MARIADB_PASS -h mariadb -P 3306 -e "SHOW DATABASES;"
 echo "------------------\n"
 
 # Check if wordpress is already installed
-if [ -e /var/www/wordpress/wp-config.php ]
-then echo "wp-config already exists."
+if [ -e /var/www/wordpress/wp-config.php ]; then
+	echo "wp-config already exists."
 else
-	
-	# get wp-cli
+	# Install WP-CLI (Command Line Interface)
 	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 	chmod +x wp-cli.phar
 	mv wp-cli.phar /usr/local/bin/wp	
 
-	# Download wordpress
+	# Install wordpress
 	cd /var/www/wordpress
 	wp core download --allow-root
 
-	# Configuration de wordpress : connection a la base de donnees et creation des users de wordpress
+	# ---------- WP Config ----------
 	# Connect to database
 	wp config create --dbname=$MARIADB_DB_NAME --dbuser=$MARIADB_USER --dbpass=$MARIADB_PASS --dbhost=$WP_HOST --dbcharset="utf8" --dbcollate="utf8_general_ci" --allow-root
 	# Admin config
