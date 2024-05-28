@@ -1,21 +1,20 @@
 version: "3.8"
 
 volumes:
-    mariadb_volume:
+    mariadb_v:
         driver: local
-        name:   mariadb_volume
+        name: mariadb_v
         driver_opts:
-            device: /home/aaugu/data/mariadb
-            type:   none
-            o:      bind
-
-    wordpress_volume:
+            device: ${MDB_DATA_PATH}
+            type: none
+            o: bind
+    wordpress_v:
         driver: local
-        name:   wordpress_volume
+        name: wordpress_v
         driver_opts:
-            device: /home/aaugu/data/wordpress
-            type:   none
-            o:      bind
+            device: ${WP_DATA_PATH}
+            type: none
+            o: bind
 
 networks:
     inception:
@@ -24,69 +23,41 @@ networks:
 services:
     mariadb:
         container_name: mariadb
-        # image:          mariadb
+        networks:
+            - inception
         build:
             context: requirements/mariadb
             dockerfile: Dockerfile
-        env_file:       .env
-        environment:
-            MDB_ROOT_PASS: /run/secrets/db_root_password
-            MDB_USER_PASS: /run/secrets/db_password
-        restart:        unless-stopped
-        networks:
-            - inception
         volumes:
-            - mariadb_volume:/var/lib/mysql
-        secrets:
-            - db_root_password
-            - db_password
-
-    wordpress:
-        container_name: wordpress
-        # image:          wordpress 
-        build:
-            context: requirements/wordpress
-            dockerfile: Dockerfile
-        env_file:       .env
-        environment:
-            MDB_USER_PASS: /run/secrets/db_password
-            WP_ADMIN_PASS: /run/secrets/wp_admin_pass
-            WP_USER_PASS: /run/secrets/wp_user_pass
-        restart:		on-failure
-        networks:
-            - inception
-        volumes:
-            - wordpress_volume:/var/www/wordpress
-        secrets:
-            - db_password
-            - wp_admin_pass
-            - wp_user_pass
-        depends_on:
-            - mariadb
+            - mariadb_v:/var/lib/mysql
+        restart: unless-stopped
+        env_file: .env
 
     nginx:
         container_name: nginx
-        # image:          nginx
+        volumes:
+            - wordpress_v:/var/www/wordpress
+        networks:
+            - inception
+        depends_on:
+            - wordpress
         build:
             context: requirements/nginx
             dockerfile: Dockerfile
-        env_file:       .env
-        restart:        on-failure
-        networks:
-            - inception
-        volumes:
-            - wordpress_volume:/var/www/wordpress
         ports:
             - "443:443"
-        depends_on:
-            - wordpress
+        restart: on-failure
 
-secrets:
-    db_password:
-        file: ../secrets/db_password.txt
-    db_root_password:
-        file: ../secrets/db_root_password.txt
-    wp_admin_pass:
-        file: ../secrets/wp_admin_pass.txt
-    wp_user_pass:
-        file: ../secrets/wp_user_pass.txt
+    wordpress:
+        container_name: wordpress
+        volumes:
+            - wordpress_v:/var/www/wordpress
+        networks:
+            - inception
+        build:
+            context: requirements/wordpress
+            dockerfile: Dockerfile
+        depends_on:
+            - mariadb
+        restart: on-failure
+        env_file: .env

@@ -4,21 +4,25 @@ YELLOW='\033[0;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-WP_DATA_PATH="/home/aaugu/data/wordpress"
-MDB_DATA_PATH="/home/aaugu/data/mariadb"
 ENV_PATH="srcs/.env"
 SECRETS_PATH="./secrets"
+LOGIN="aaugu"
 
 echo "-------------------- PREPARING DOCKER TO START... --------------------"
 
-echo "${CYAN}Checking secrets and .env file...${NC}"
-if [ ! -d ${SECRETS_PATH} ]; then
-	echo "${RED}Secrets directory is missing!${NC}"
-	exit 1
+echo "${CYAN}Exporting variables...${NC}"
+if [ $(uname -s) == 'Darwin']; then
+	HOME="/Users/${LOGIN}"
+	export STUDENT_DOMAIN = localhost
 else
-	echo "${GREEN}Secrets directory successfully found${NC}"
-fi
+	HOME="/home/${LOGIN}"
+	export STUDENT_DOMAIN = ${LOGIN}.42.fr
+endif
 
+export WP_DATA_PATH := ${HOME}/data/wordpress
+export MDB_DATA_PATH := ${HOME}/data/mariadb
+
+echo "${CYAN}Checking .env file...${NC}"
 if [ ! -f ${ENV_PATH} ]; then
 	echo "${RED}.env file is missing!${NC}"
 	exit 1

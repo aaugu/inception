@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 08:55:25 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/27 11:07:58 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/28 10:31:22 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ DOCKER_COMPOSE	= docker-compose
 DC_FILE			= ./srcs/docker-compose.yml
 DATA_PATH		= /home/aaugu/data/
 ENV_PATH		= srcs/.env
-SECRETS_PATH	= secrets
 
 all : prepare down build up
 
@@ -30,6 +29,10 @@ build :
 up :
 	@(echo "Building, creating and starting containers...")
 	@($(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) up)
+
+up-detached :
+	@(echo "Building, creating and starting containers...")
+	@($(DOCKER_COMPOSE) -f $(DC_FILE) -p $(NAME) up -d)
 
 down :
 	@(echo "Stopping containers...")
@@ -57,7 +60,6 @@ clean: 	down
 fclean: clean
 	@(docker system prune -a --volumes)
 	@(sudo rm -rf $(DATA_PATH))
-	#@(rm -rf $(SECRETS_PATH))
 	#@(rm $(ENV_PATH))
 
 .PHONY: all prepare build up down start stop status logs clean fclean
