@@ -6,23 +6,20 @@
 #    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:02:10 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/27 13:55:18 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/28 11:34:34 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM debian:bullseye
 
 # Install wget
-RUN apt-get update -y && apt upgrade -y
+RUN apt update -y && apt upgrade -y
 RUN apt-get install -y wget
 
 # ------------------------------------ PHP ------------------------------------
 
-# Install PHP and PHP-FPM for PHP requests management 
-RUN apt-get -y install php7.4 php-fpm
-
-# Install of php-mysql and mariadb-client for msql requests management
-RUN apt-get -y install php-mysql mariadb-client
+# Install PHP and PHP-FPM for PHP requests management + php-mysql and mariadb-client for msql requests management
+RUN apt-get -y install php7.4 php-fpm php-mysql mariadb-client
 
 # ------------------------- PREPARATION FOR WORDPRESS -------------------------
 

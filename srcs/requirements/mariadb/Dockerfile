@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 11:35:37 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/27 12:01:59 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/28 11:28:29 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ FROM debian:bullseye
 
 # ------------------------- MARIADB -------------------------
 # Install MariaDB
-RUN apt-get update -y && apt-get upgrade -y
-RUN apt install mariadb-server -y
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y mariadb-server
 
 # Working directory creation
 RUN mkdir -p /run/mysqld /var/lib/mysql
