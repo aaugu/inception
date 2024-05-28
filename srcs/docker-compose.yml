@@ -5,14 +5,14 @@ volumes:
         driver: local
         name: mariadb_v
         driver_opts:
-            device: ${MDB_DATA_PATH}
+            device: /home/aaugu/data/mariadb
             type: none
             o: bind
     wordpress_v:
         driver: local
         name: wordpress_v
         driver_opts:
-            device: ${WP_DATA_PATH}
+            device: /home/aaugu/data/wordpress
             type: none
             o: bind
 
@@ -33,6 +33,20 @@ services:
         restart: unless-stopped
         env_file: .env
 
+    wordpress:
+        container_name: wordpress
+        volumes:
+            - wordpress_v:/var/www/wordpress
+        networks:
+            - inception
+        build:
+            context: requirements/wordpress
+            dockerfile: Dockerfile
+        depends_on:
+            - mariadb
+        restart: on-failure
+        env_file: .env
+
     nginx:
         container_name: nginx
         volumes:
@@ -47,17 +61,3 @@ services:
         ports:
             - "443:443"
         restart: on-failure
-
-    wordpress:
-        container_name: wordpress
-        volumes:
-            - wordpress_v:/var/www/wordpress
-        networks:
-            - inception
-        build:
-            context: requirements/wordpress
-            dockerfile: Dockerfile
-        depends_on:
-            - mariadb
-        restart: on-failure
-        env_file: .env

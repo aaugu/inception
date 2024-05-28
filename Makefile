@@ -6,7 +6,7 @@
 #    By: aaugu <aaugu@student.42lausanne.ch>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 08:55:25 by aaugu             #+#    #+#              #
-#    Updated: 2024/05/28 10:31:22 by aaugu            ###   ########.fr        #
+#    Updated: 2024/05/28 11:16:25 by aaugu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ ENV_PATH		= srcs/.env
 all : prepare down build up
 
 prepare :
-	@(sh srcs/requirements/tools/prepare_inception.sh)
+	@(sh ./srcs/requirements/tools/prepare_inception.sh)
 	@(echo "Inception successfully prepared !")
 
 build :
